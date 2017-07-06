@@ -241,6 +241,8 @@ def load_conf(config_name=None):
     config = SafeConfigParser()
     config_file = os.path.join(
         os.path.expanduser('~'), '.buildfarm', 'reprepro-updater.ini')
+    print '!!!!!!!!!!!!!', config_file
+    print '~~~~~~', os.path.expanduser('~')
 
     if not config_name:
         config_name = 'DEFAULT'
