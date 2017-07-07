@@ -56,7 +56,7 @@ def try_run_command(command):
 
 def delete_unreferenced(repo_dir, commit):
     command_argument = 'deleteunreferenced' if commit else 'dumpunreferenced'
-    cleanup_command = ['reprepro', '-v', '-b', repo_dir, command_argument]
+    cleanup_command = ['reprepro', '-VV', '-b', repo_dir, command_argument]
     print("running", cleanup_command, file=sys.stderr)
     return try_run_command(cleanup_command)
 
@@ -65,7 +65,7 @@ def run_include_command(repo_dir, distro, changesfile):
     """Update the repo to add the files in this changes file."""
     # Force misc due to dry packages having invalid "unknown" section,
     # the -S misc can be removed when dry is deprecated.
-    include_command = ['reprepro', '-v', '-b', repo_dir, '-S', 'misc',
+    include_command = ['reprepro', '-VV', '-b', repo_dir, '-S', 'misc',
                        'include', distro, changesfile]
     return try_run_command(include_command)
 
@@ -73,7 +73,7 @@ def run_include_command(repo_dir, distro, changesfile):
 def _run_update_command(repo_dir, distro, commit):
     """Update the repo to add the files in this changes file."""
     command_argument = 'update' if commit else 'dumpupdate'
-    update_command = ['reprepro', '-v', '-b', repo_dir,
+    update_command = ['reprepro', '-VV', '-b', repo_dir,
                       '--noskipold', command_argument, distro]
     return try_run_command(update_command)
 
@@ -151,7 +151,7 @@ def invalidate_dependent(repo_dir, distro, arch, package):
 
 def _clear_ros_distro(repo_dir, rosdistro, distro, arch, commit):
     command_argument = 'removefilter' if commit else 'listfilter'
-    cleanup_command = ['reprepro', '-v', '-b', repo_dir, '-A', arch,
+    cleanup_command = ['reprepro', '-VV', '-b', repo_dir, '-A', arch,
                        command_argument, distro,
                        "Package (%% ros-%s-* )" % rosdistro]
     return try_run_command(cleanup_command)
